@@ -1,6 +1,8 @@
 <template>
   <div>
     <b-navbar toggleable="lg" type="dark" variant="info">
+      <logo />
+
       <b-navbar-brand
         href="https://qiita.com/advent-calendar/2019/nuxt-js"
         target="_blank"
@@ -23,6 +25,16 @@
     <nuxt />
   </div>
 </template>
+
+<script>
+import Logo from '~/components/Logo.vue'
+
+export default {
+  components: {
+    Logo
+  }
+}
+</script>
 
 <style>
 html {

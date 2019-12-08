@@ -1,7 +1,6 @@
 <template>
   <div class="container">
     <div>
-      <logo />
       <h1 class="title">
         advent-calendar-2019-bootstrap
       </h1>
@@ -14,13 +13,9 @@
 </template>
 
 <script>
-import Logo from '~/components/Logo.vue'
 import { parse } from 'node-html-parser'
 
 export default {
-  components: {
-    Logo
-  },
   async asyncData({ $axios }) {
     const { data } = await $axios.get('https://qiita.com/advent-calendar/2019/nuxt-js')
     const root = parse(data)
