@@ -150,7 +150,7 @@
     </b-container>
 
     <p class="pt-3">
-      ※ このページはレスポンシブ対応していません。デスクトップでご覧ください。
+      ※ このページはレスポンシブ対応していません。デスクトップサイズの画面でご覧ください。
     </p>
   </div>
 </template>
@@ -186,5 +186,8 @@ export default {
 <style>
 .week {
   width: calc(100% / 7);
+}
+.container {
+  min-width: 992px;
 }
 </style>

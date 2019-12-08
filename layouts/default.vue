@@ -47,6 +47,7 @@ html {
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
   box-sizing: border-box;
+  min-width: 992px;
 }
 
 *,
