@@ -5,35 +5,41 @@
       <h1 class="title">
         advent-calendar-2019-bootstrap
       </h1>
-      <h2 class="subtitle">
-        My funkadelic Nuxt.js project
-      </h2>
-      <div class="links">
-        <a
-          href="https://nuxtjs.org/"
-          target="_blank"
-          class="button--green"
-        >
-          Documentation
-        </a>
-        <a
-          href="https://github.com/nuxt/nuxt.js"
-          target="_blank"
-          class="button--grey"
-        >
-          GitHub
-        </a>
-      </div>
+      <pre>
+        {{ dayNames }}
+        {{ days }}
+      </pre>
     </div>
   </div>
 </template>
 
 <script>
 import Logo from '~/components/Logo.vue'
+import { parse } from 'node-html-parser'
 
 export default {
   components: {
     Logo
+  },
+  async asyncData({ $axios }) {
+    const { data } = await $axios.get('https://qiita.com/advent-calendar/2019/nuxt-js')
+    const root = parse(data)
+    return {
+      dayNames: root.querySelectorAll('.adventCalendarCalendar_dayName').map(dayName => dayName.text),
+      days: root.querySelectorAll('.adventCalendarCalendar_day').map(day => {
+        const articleUrl = day.querySelector('.adventCalendarCalendar_comment').querySelector('a') ?
+          day.querySelector('.adventCalendarCalendar_comment').querySelector('a').attributes['href'] :
+          null
+
+        return {
+          date: day.querySelector('.adventCalendarCalendar_date').text,
+          authorName: day.querySelector('.adventCalendarCalendar_author').text,
+          authorImageUrl: day.querySelector('.adventCalendarCalendar_authorIcon').attributes['src'],
+          comment: day.querySelector('.adventCalendarCalendar_comment').text,
+          articleUrl: articleUrl
+        }
+      })
+    }
   }
 }
 </script>
@@ -56,17 +62,5 @@ export default {
   font-size: 100px;
   color: #35495e;
   letter-spacing: 1px;
-}
-
-.subtitle {
-  font-weight: 300;
-  font-size: 42px;
-  color: #526488;
-  word-spacing: 5px;
-  padding-bottom: 15px;
-}
-
-.links {
-  padding-top: 15px;
 }
 </style>
